@@ -27,6 +27,7 @@ $RECYCLE.BIN/
 *.gz
 *.mat
 data/
+ReportImages/
 
 # =========================
 # Operating System Files
