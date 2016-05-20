@@ -4,14 +4,19 @@ import tarfile
 import cv2
 import numpy
 
+data_folder = 'data/'
 
 def im_from_file(f):
     a = numpy.asarray(bytearray(f.read()), dtype=numpy.uint8)
     return cv2.imdecode(a, cv2.CV_LOAD_IMAGE_GRAYSCALE)
 
 
-def extract_backgrounds(archive_name):
-    os.mkdir("bgs")
+def extract_backgrounds(archive_name, force=False):
+    if not os.path.exists(data_folder + "/bgs"):
+        os.mkdir(data_folder + "/bgs")
+    elif not force:
+        print('/bgs already present - Skipping extraction of %s.' % (archive_name))
+        return
 
     t = tarfile.open(name=archive_name)
 
