@@ -8,7 +8,7 @@ data_folder = 'data/'
 
 def im_from_file(f):
     a = numpy.asarray(bytearray(f.read()), dtype=numpy.uint8)
-    return cv2.imdecode(a, cv2.CV_LOAD_IMAGE_GRAYSCALE)
+    return cv2.imdecode(a, cv2.IMREAD_GRAYSCALE)
 
 
 def extract_backgrounds(archive_name, force=False):
@@ -43,7 +43,7 @@ def extract_backgrounds(archive_name, force=False):
             im = im[:, :im.shape[0]]
         if im.shape[0] > 256:
             im = cv2.resize(im, (256, 256))
-        fname = "bgs/{:08}.jpg".format(index)
+        fname = data_folder + "bgs/{:08}.jpg".format(index)
         print(fname)
         rc = cv2.imwrite(fname, im)
         if not rc:
