@@ -42,7 +42,7 @@ FONTS = [
     "fonts/roboto/Roboto-BoldItalic.ttf",
 ]
 
-FONT_HEIGHT = 70  # Char hight in pixels
+FONT_HEIGHT = 32
 
 OUTPUT_SHAPE = (128, 128)
 
@@ -107,11 +107,10 @@ def make_char_ims(output_height):
     for font_path in FONTS:
         fonts.append(ImageFont.truetype(font_path, font_size))
 
-    height = max(f.getsize(c)[1] for c in CHARS for f in fonts)
-
     for c in CHARS:
         char_ims = []
         for font in fonts:
+            height = max(font.getsize(c)[1] for c in CHARS)
             width = font.getsize(c)[0]
             im = Image.new("RGBA", (width, height), (0, 0, 0))
 
@@ -273,8 +272,8 @@ def generate_im(char_ims, num_bg_images):
     M, out_of_bounds = make_affine_transform(
                             from_shape=number.shape,
                             to_shape=bg.shape,
-                            min_scale=0.6,
-                            max_scale=0.875,
+                            min_scale=0.5,
+                            max_scale=2.0,
                             rotation_variation=1.0,
                             scale_variation=1.5,
                             translation_variation=1.2)
