@@ -50,13 +50,6 @@ CHARS = "0123456789"
 
 DATA_FOLDER = 'data/'
 
-def softmax(a):
-    exps = numpy.exp(a.astype(numpy.float64))
-    return exps / numpy.sum(exps, axis=-1)[:, numpy.newaxis]
-
-def sigmoid(a):
-  return 1. / (1. + numpy.exp(-a))
-
 def im_from_file(f):
     a = numpy.asarray(bytearray(f.read()), dtype=numpy.uint8)
     return cv2.imdecode(a, cv2.IMREAD_GRAYSCALE)
