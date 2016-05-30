@@ -1,7 +1,6 @@
 import tensorflow as tf
 import numpy
-  
-INPUT_SHAPE = (128, 128)
+import constants
 
 def softmax(a):
     exps = numpy.exp(a.astype(numpy.float64))
@@ -43,13 +42,13 @@ def convolutional_layers():
     h_pool1 = max_pool(h_conv1, ksize=(2, 2), stride=(2, 2))
     
     # Second layer
-    W_conv2 = weight_variable([5, 5, 48, 64])
+    W_conv2 = weight_variable([5, 5, 64, 64])
     b_conv2 = bias_variable([64])
     h_conv2 = tf.nn.relu(conv2d(h_pool1, W_conv2) + b_conv2)
     h_pool2 = max_pool(h_conv2, ksize=(2, 1), stride=(2, 1))
     
     # Third layer
-    W_conv3 = weight_variable([5, 5, 64, 128])
+    W_conv3 = weight_variable([5, 5, 128, 128])
     b_conv3 = bias_variable([128])
     h_conv3 = tf.nn.relu(conv2d(h_pool2, W_conv3) + b_conv3)
     h_pool3 = max_pool(h_conv3, ksize=(2, 2), stride=(2, 2))
@@ -69,8 +68,8 @@ def get_training_model():
     h_fc1 = tf.nn.relu(tf.matmul(conv_layer_flat, W_fc1) + b_fc1)
     
     # Output layer
-    W_fc2 = weight_variable([2048, 1 + 7 * 10])
-    b_fc2 = bias_variable([1 + 7 * 10])
+    W_fc2 = weight_variable([2048, 1 + 7 * len(constants.CHARS)])
+    b_fc2 = bias_variable([1 + 7 * len(constants.CHARS)])
     
     y = tf.matmul(h_fc1, W_fc2) + b_fc2
     

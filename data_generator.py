@@ -4,6 +4,7 @@ import cv2
 import numpy
 import math
 import random
+import constants
 
 from PIL import Image
 from PIL import ImageDraw
@@ -45,8 +46,6 @@ FONTS = [
 FONT_HEIGHT = 32
 
 OUTPUT_SHAPE = (128, 128)
-
-CHARS = "0123456789"
 
 DATA_FOLDER = 'data/'
 
@@ -100,10 +99,10 @@ def make_char_ims(output_height):
     for font_path in FONTS:
         fonts.append(ImageFont.truetype(font_path, font_size))
 
-    for c in CHARS:
+    for c in constants.CHARS:
         char_ims = []
         for font in fonts:
-            height = max(font.getsize(c)[1] for c in CHARS)
+            height = max(font.getsize(c)[1] for c in constants.CHARS)
             width = font.getsize(c)[0]
             im = Image.new("RGBA", (width, height), (0, 0, 0))
 
@@ -204,7 +203,7 @@ def generate_digits():
     code = ""
     length = random.randint(1, 5)
     for _ in range(length):
-        code += random.choice(CHARS)
+        code += random.choice(constants.CHARS)
     if code[0] == '0':
         return generate_digits()
     return code
