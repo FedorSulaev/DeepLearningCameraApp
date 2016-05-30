@@ -1,4 +1,5 @@
 import tensorflow as tf
+import numpy
   
 INPUT_SHAPE = (128, 128)
 
